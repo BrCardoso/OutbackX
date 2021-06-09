@@ -1,6 +1,7 @@
 ﻿using OutbackX.Mobile.Models;
 using OutbackX.Mobile.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -10,20 +11,20 @@ namespace OutbackX.Mobile.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private Estabelecimento _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<Estabelecimento> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<Estabelecimento> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<Estabelecimento>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<Estabelecimento>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -35,7 +36,7 @@ namespace OutbackX.Mobile.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = new List<Estabelecimento>();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -57,7 +58,7 @@ namespace OutbackX.Mobile.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public Estabelecimento SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,7 +73,7 @@ namespace OutbackX.Mobile.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(Estabelecimento item)
         {
             if (item == null)
                 return;

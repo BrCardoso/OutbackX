@@ -89,7 +89,7 @@ namespace OutbackX.Mobile.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            Estabelecimento newItem = new Estabelecimento()
             {
                 Unidade = Unidade,
                 Endereco = Endereco,
@@ -101,7 +101,7 @@ namespace OutbackX.Mobile.ViewModels
                 CEP = CEP
             };
 
-            await DataStore.AddItemAsync(newItem);
+            //await DataStore.AddItemAsync(newItem);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

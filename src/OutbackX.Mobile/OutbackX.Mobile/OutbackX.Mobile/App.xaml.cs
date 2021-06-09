@@ -11,10 +11,9 @@ namespace OutbackX.Mobile
 
         public App()
         {
-            InitializeComponent();
-
-            DependencyService.Register<SqLiteDataStore>();
-            MainPage = new AppShell();
+            this.InitializeComponent();
+            DependencyService.Register<IUsuarioService, UsuarioService>();
+            this.MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

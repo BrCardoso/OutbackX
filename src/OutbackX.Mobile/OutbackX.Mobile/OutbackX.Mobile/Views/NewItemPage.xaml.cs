@@ -10,7 +10,7 @@ namespace OutbackX.Mobile.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public Estabelecimento Item { get; set; }
 
         public NewItemPage()
         {

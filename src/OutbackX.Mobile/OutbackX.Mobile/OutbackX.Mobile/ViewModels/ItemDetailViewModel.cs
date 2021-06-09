@@ -79,7 +79,7 @@ namespace OutbackX.Mobile.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = new Estabelecimento();
                 Id = item.Id;
                 Unidade = item.Unidade;
                 Endereco = item.Endereco;

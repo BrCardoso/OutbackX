@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:OutbackX.Mobile.ViewModels"
+             x:Class="OutbackX.Mobile.Views.NovoUsuarioPage"
+             Title="Novo Usuário">
+
+    <ContentPage.BindingContext>
+        <vm:NovoUsuarioViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="Informar os dados:" FontSize="Title"></Label>
+            <Entry Text="{Binding Nome}" Placeholder="Nome"></Entry>
+            <Entry Text="{Binding Email}" Keyboard="Email" Placeholder="Email"></Entry>
+            <Entry Text="{Binding Senha}" Placeholder="Senha" IsPassword="True"></Entry>
+            <Picker ItemsSource="{Binding TiposUsuario}" SelectedIndex="{Binding TipoUsuario}"/>
+            
+            <Label Text="{Binding Message, Mode=OneWay}" 
+                   IsVisible="{Binding ShowMessage, Mode=OneWay}" 
+                   Margin="10,0,0,0"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+            ></Label>
+
+            <Button Text="CADASTRAR" 
+                    TextColor="White" 
+                    BackgroundColor="#009900" 
+                    Margin="10,10,10,10" 
+                    Command="{Binding SalvarCommand}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

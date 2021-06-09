@@ -10,32 +10,44 @@ namespace OutbackX.Mobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+        private string message;
+        private bool isBusy = false;
+        private string title = string.Empty;
 
-        bool isBusy = false;
+        public string Message
+        {
+            get => this.message;
+            set
+            {
+                this.SetProperty(ref this.message, value);
+                this.OnPropertyChanged("ShowMessage");
+            }
+        }
+
+        public bool ShowMessage { get => !string.IsNullOrEmpty(this.message); }
+
         public bool IsBusy
         {
-            get { return isBusy; }
-            set { SetProperty(ref isBusy, value); }
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
         }
-
-        string title = string.Empty;
+        
         public string Title
         {
-            get { return title; }
-            set { SetProperty(ref title, value); }
+            get => title;
+            set => SetProperty(ref title, value);
         }
 
-        protected bool SetProperty<T>(ref T backingStore, T value,
-            [CallerMemberName] string propertyName = "",
-            Action onChanged = null)
+        protected bool SetProperty<T>(ref T backingStore, T value, [CallerMemberName] string propertyName = "", Action onChanged = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingStore, value))
+            {
                 return false;
+            }
 
             backingStore = value;
             onChanged?.Invoke();
-            OnPropertyChanged(propertyName);
+            this.OnPropertyChanged(propertyName);
             return true;
         }
 
