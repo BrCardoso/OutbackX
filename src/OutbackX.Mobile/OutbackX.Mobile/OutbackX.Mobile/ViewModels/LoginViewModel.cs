@@ -13,9 +13,9 @@ namespace OutbackX.Mobile.ViewModels
         private string senha;
         private readonly IUsuarioService usuarioService;
 
-        public LoginViewModel()
+        public LoginViewModel(IUsuarioService usuarioService)
         {
-            this.usuarioService = DependencyService.Get<IUsuarioService>();
+            this.usuarioService = usuarioService;
             this.LoginCommand = new Command(this.OnLoginClicked);
             this.CreateAccountCommand = new Command(this.OnCreateCommandClicked);
         }

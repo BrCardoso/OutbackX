@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using OutbackX.Mobile.ViewModels;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace OutbackX.Mobile.Views
@@ -8,7 +9,8 @@ namespace OutbackX.Mobile.Views
     {
         public NovoUsuarioPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            this.BindingContext = App.GetViewModel<NovoUsuarioViewModel>();
         }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Extensions.DependencyInjection;
+using OutbackX.Mobile.Config;
+using OutbackX.Mobile.iOS.Config;
 using UIKit;
 
 namespace OutbackX.Mobile.iOS
@@ -23,9 +26,14 @@ namespace OutbackX.Mobile.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(AddServices));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private static void AddServices(IServiceCollection services)
+        {
+            services.AddSingleton<IDbPathConfig, DbPathConfig>();
         }
     }
 }

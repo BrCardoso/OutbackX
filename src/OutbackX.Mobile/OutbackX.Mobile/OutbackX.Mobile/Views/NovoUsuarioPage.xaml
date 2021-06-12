@@ -4,10 +4,6 @@
              xmlns:vm="clr-namespace:OutbackX.Mobile.ViewModels"
              x:Class="OutbackX.Mobile.Views.NovoUsuarioPage"
              Title="Novo Usuário">
-
-    <ContentPage.BindingContext>
-        <vm:NovoUsuarioViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout Padding="10">
             <Label Text="Informar os dados:" FontSize="Title"></Label>

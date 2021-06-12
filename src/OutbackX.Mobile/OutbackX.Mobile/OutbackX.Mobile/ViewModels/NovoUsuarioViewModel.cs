@@ -10,13 +10,18 @@ namespace OutbackX.Mobile.ViewModels
 {
     public class NovoUsuarioViewModel : BaseViewModel
     {
-        private readonly IUsuarioService usuarioService = DependencyService.Get<IUsuarioService>();
+        private readonly IUsuarioService usuarioService;
         private string nome;
         private string email;
         private string senha;
         private TipoUsuario? tipoUsuario;
         private Command salvarCommand;
         private Command cancelarCommand;
+
+        public NovoUsuarioViewModel(IUsuarioService usuarioService)
+        {
+            this.usuarioService = usuarioService;
+        }
 
         public string Nome { get => this.nome; set => base.SetProperty(ref this.nome, value); }
         public string Email { get => this.email; set => base.SetProperty(ref this.email, value); }
@@ -70,9 +75,9 @@ namespace OutbackX.Mobile.ViewModels
 
                     this.usuarioService.Insert(new Usuario()
                     {
-                        Nome = this.nome,
-                        Email = this.email,
-                        Senha = this.senha,
+                        Nome = this.nome.Trim(),
+                        Email = this.email.Trim(),
+                        Senha = this.senha.Trim(),
                         TipoUsuario = this.tipoUsuario.Value
                     });
 

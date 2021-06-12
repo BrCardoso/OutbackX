@@ -9,10 +9,6 @@
              Title="Outback X"
              Shell.NavBarIsVisible="False">
 
-    <ContentPage.BindingContext>
-        <vm:LoginViewModel/>
-    </ContentPage.BindingContext>
-
     <ContentPage.Content>
         <StackLayout>
             <Label Text="LOGIN" HorizontalOptions="Center" FontSize="Title" Margin="0,30,0,10"></Label>

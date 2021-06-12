@@ -13,10 +13,9 @@ namespace OutbackX.Mobile.Services
     {
         private readonly SQLiteConnection dbConnection;
 
-        public BaseService()
+        public BaseService(IDbPathConfig dbPathConfig)
         {
-            var dbPath = DependencyService.Get<IDbPathConfig>();
-            var dbFile = Path.Combine(dbPath.Path, "Usuario.db");
+            var dbFile = Path.Combine(dbPathConfig.Path, "Usuario.db");
             this.dbConnection = new SQLiteConnection(dbFile);
             this.dbConnection.CreateTable<Usuario>();
         }

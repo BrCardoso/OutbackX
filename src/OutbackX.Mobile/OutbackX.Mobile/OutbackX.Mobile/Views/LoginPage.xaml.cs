@@ -14,7 +14,8 @@ namespace OutbackX.Mobile.Views
     {
         public LoginPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            this.BindingContext = App.GetViewModel<LoginViewModel>();
         }
     }
 }

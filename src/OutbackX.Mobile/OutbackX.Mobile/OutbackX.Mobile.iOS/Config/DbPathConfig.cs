@@ -2,7 +2,6 @@
 using OutbackX.Mobile.Config;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(OutbackX.Mobile.iOS.Config.DbPathConfig))]
 namespace OutbackX.Mobile.iOS.Config
 {
     public class DbPathConfig : IDbPathConfig
