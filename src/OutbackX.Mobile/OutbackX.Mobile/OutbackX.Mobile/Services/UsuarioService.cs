@@ -27,5 +27,10 @@ namespace OutbackX.Mobile.Services
 
             return resultado;
         }
+
+        protected override Usuario GetById(int id)
+        {
+            return base.FindWithQuery("SELECT * FROM Usuario Where Id=?", id);
+        }
     }
 }

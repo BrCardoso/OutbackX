@@ -2,6 +2,14 @@
 
 namespace OutbackX.Mobile.Models
 {
+    public enum Capacidade
+    {
+        Vazio,
+        Moderado,
+        Cheio,
+        TemFila
+    }
+
     public class Estabelecimento
     {
         [PrimaryKey, AutoIncrement]
@@ -14,5 +22,6 @@ namespace OutbackX.Mobile.Models
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
+        public Capacidade CapacidadeAtual { get; set; }
     }
 }

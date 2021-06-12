@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using OutbackX.Mobile.Models;
 using OutbackX.Mobile.Services;
 using OutbackX.Mobile.Utils;
@@ -80,6 +79,7 @@ namespace OutbackX.Mobile.ViewModels
                         Senha = this.senha.Trim(),
                         TipoUsuario = this.tipoUsuario.Value
                     });
+
 
                     Application.Current.MainPage.Navigation.PopAsync();
 

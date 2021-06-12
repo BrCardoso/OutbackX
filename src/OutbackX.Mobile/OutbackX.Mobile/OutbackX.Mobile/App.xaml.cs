@@ -14,7 +14,7 @@ namespace OutbackX.Mobile
         {
             this.InitializeComponent();
             this.SetupServices(addPlatformServices);
-            this.MainPage = new NavigationPage(new LoginPage());
+            this.MainPage = new AppShell();
         }
 
         private void SetupServices(Action<IServiceCollection> addPlatformServices)
@@ -22,9 +22,12 @@ namespace OutbackX.Mobile
             var services = new ServiceCollection();
             addPlatformServices?.Invoke(services);
 
+            services.AddTransient<NovoEstabelecimentoViewModel>();
+            services.AddTransient<ListEstabelecimentoViewModel>();
             services.AddTransient<NovoUsuarioViewModel>();
             services.AddTransient<LoginViewModel>();
-            services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddSingleton<IEstabelecimentoService, EstabelecimentoService>();
+            services.AddSingleton<IUsuarioService, UsuarioService>();
 
             ServiceProvider = services.BuildServiceProvider();
         }

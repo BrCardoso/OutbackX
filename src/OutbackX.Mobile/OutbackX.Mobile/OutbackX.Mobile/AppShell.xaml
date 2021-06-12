@@ -27,7 +27,7 @@
     <TabBar>
         <ShellContent Title="Home" Icon="icon_about.png" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
 
-        <ShellContent Title="Admin" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" IsVisible="{Binding IsAdmin}" >
+        <ShellContent Title="Admin" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:LoginPage}" >
             
         </ShellContent>
     </TabBar>

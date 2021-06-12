@@ -7,13 +7,14 @@ namespace OutbackX.Mobile
 {
     public partial class AppShell : Shell
     {
-        public AppShell(Usuario usuario)
+        public AppShell()
         {
             this.InitializeComponent();
 
-            this.BindingContext = new AppShellViewModel(usuario);
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            this.BindingContext = new AppShellViewModel();
+            Routing.RegisterRoute(nameof(ListEstabelecimentoPage), typeof(ListEstabelecimentoPage));
+            //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(NewEstabelecimentoPage), typeof(NewEstabelecimentoPage));
         }
 
     }

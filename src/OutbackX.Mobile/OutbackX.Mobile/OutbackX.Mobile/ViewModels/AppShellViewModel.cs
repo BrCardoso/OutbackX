@@ -7,12 +7,8 @@ namespace OutbackX.Mobile.ViewModels
 {
     public class AppShellViewModel : BaseViewModel
     {
-        private readonly Usuario usuario;
-        public AppShellViewModel(Usuario usuario)
+        public AppShellViewModel()
         {
-            this.usuario = usuario;
         }
-
-        public bool IsAdmin => this.usuario.TipoUsuario == TipoUsuario.Admin;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OutbackX.Mobile.Models;
+using OutbackX.Mobile.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ using Xamarin.Forms;
 
 namespace OutbackX.Mobile.ViewModels
 {
-    public class NewItemViewModel : BaseViewModel
+    public class NovoEstabelecimentoViewModel : BaseViewModel
     {
         private string unidade;
         private string endereco;
@@ -16,25 +17,27 @@ namespace OutbackX.Mobile.ViewModels
         private string bairro;
         private string cidade;
         private string estado;
-        private string cCEP;
+        private string cep;
+        private readonly IEstabelecimentoService estabelecimentoService;
 
-        public NewItemViewModel()
+        public NovoEstabelecimentoViewModel(IEstabelecimentoService estabelecimentoService)
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
-            CancelCommand = new Command(OnCancel);
-            this.PropertyChanged +=
-                (_, __) => SaveCommand.ChangeCanExecute();
+            this.SaveCommand = new Command(this.OnSave, this.ValidateSave);
+            this.CancelCommand = new Command(this.OnCancel);
+            this.PropertyChanged += (_, __) => this.SaveCommand.ChangeCanExecute();
+
+            this.estabelecimentoService = estabelecimentoService;
         }
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(Unidade)
-                && !String.IsNullOrWhiteSpace(Endereco)
-                && (numero > 0)
-                && !String.IsNullOrWhiteSpace(Bairro)
-                && !String.IsNullOrWhiteSpace(Cidade)
-                && !String.IsNullOrWhiteSpace(Estado)
-                && !String.IsNullOrWhiteSpace(CEP);
+            return !string.IsNullOrWhiteSpace(this.Unidade)
+                && !string.IsNullOrWhiteSpace(Endereco)
+                && (this.numero > 0)
+                && !string.IsNullOrWhiteSpace(Bairro)
+                && !string.IsNullOrWhiteSpace(Cidade)
+                && !string.IsNullOrWhiteSpace(Estado)
+                && !string.IsNullOrWhiteSpace(CEP);
         }
 
         public string Unidade
@@ -74,8 +77,8 @@ namespace OutbackX.Mobile.ViewModels
         }
         public string CEP
         {
-            get => cCEP;
-            set => SetProperty(ref cCEP, value);
+            get => cep;
+            set => SetProperty(ref cep, value);
         }
 
         public Command SaveCommand { get; }
@@ -89,7 +92,7 @@ namespace OutbackX.Mobile.ViewModels
 
         private async void OnSave()
         {
-            Estabelecimento newItem = new Estabelecimento()
+            var newEstab = new Estabelecimento()
             {
                 Unidade = Unidade,
                 Endereco = Endereco,
@@ -101,9 +104,9 @@ namespace OutbackX.Mobile.ViewModels
                 CEP = CEP
             };
 
-            //await DataStore.AddItemAsync(newItem);
+            this.estabelecimentoService.Insert(newEstab);
 
-            // This will pop the current page off the navigation stack
+            MessagingCenter.Send(string.Empty, "NEW_ESTAB");
             await Shell.Current.GoToAsync("..");
         }
     }

@@ -1,46 +1,48 @@
 ﻿using OutbackX.Mobile.Models;
+using OutbackX.Mobile.Services;
 using OutbackX.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace OutbackX.Mobile.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ListEstabelecimentoViewModel : BaseViewModel
     {
         private Estabelecimento _selectedItem;
 
+        private readonly IEstabelecimentoService estabelecimentoService;
+        public ListEstabelecimentoViewModel(IEstabelecimentoService estabelecimentoService)
+        {
+            this.estabelecimentoService = estabelecimentoService;
+            this.Items = new ObservableCollection<Estabelecimento>();
+            this.AddItemCommand = new Command(OnAddItem);
+            this.ItemTapped = new Command<Estabelecimento>(OnItemSelected);
+            this.LoadItems();
+
+            MessagingCenter.Subscribe(this, "NEW_ESTAB", (string _) => this.LoadItems());
+        }
+
         public ObservableCollection<Estabelecimento> Items { get; }
-        public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
         public Command<Estabelecimento> ItemTapped { get; }
 
-        public ItemsViewModel()
+        private void LoadItems()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Estabelecimento>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Estabelecimento>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
-        }
-
-        async Task ExecuteLoadItemsCommand()
-        {
             IsBusy = true;
 
             try
             {
-                Items.Clear();
-                var items = new List<Estabelecimento>();
-                foreach (var item in items)
-                {
-                    Items.Add(item);
-                }
+                this.Items.Clear();
+                this.estabelecimentoService.GetAll()
+                    .ToList()
+                    .ForEach(item => this.Items.Add(item));
+
             }
             catch (Exception ex)
             {
@@ -68,9 +70,9 @@ namespace OutbackX.Mobile.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
+        private void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            Shell.Current.GoToAsync(nameof(NewEstabelecimentoPage));
         }
 
         async void OnItemSelected(Estabelecimento item)

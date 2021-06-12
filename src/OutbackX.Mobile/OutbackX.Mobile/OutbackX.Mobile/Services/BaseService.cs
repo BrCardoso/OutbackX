@@ -18,6 +18,7 @@ namespace OutbackX.Mobile.Services
             var dbFile = Path.Combine(dbPathConfig.Path, "Usuario.db");
             this.dbConnection = new SQLiteConnection(dbFile);
             this.dbConnection.CreateTable<Usuario>();
+            this.dbConnection.CreateTable<Estabelecimento>();
         }
 
         public void Dispose()
@@ -46,6 +47,8 @@ namespace OutbackX.Mobile.Services
         {
             this.dbConnection.Delete(model);
         }
+
+        protected abstract T GetById(int id);
 
         protected T FindWithQuery(string query, params object[] args)
         {

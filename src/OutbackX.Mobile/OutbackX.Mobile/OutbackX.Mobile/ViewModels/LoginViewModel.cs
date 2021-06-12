@@ -45,7 +45,9 @@ namespace OutbackX.Mobile.ViewModels
             if (this.usuarioService.Login(this.email, this.senha))
             {
                 var usuario = this.usuarioService.GetByEmail(this.email);
-                Application.Current.MainPage = new AppShell(usuario);
+                // Application.Current.MainPage = new AppShell();
+                AppShell.Current.Navigation.PushAsync(new ListEstabelecimentoPage());
+                //Shell.Current.GoToAsync(nameof(ItemsPage));
             }
             else
             {
