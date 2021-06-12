@@ -9,7 +9,7 @@ namespace OutbackX.Mobile.Services
         {
         }
 
-        protected override Estabelecimento GetById(int id)
+        public override Estabelecimento GetById(int id)
         {
             return FindWithQuery("SELECT * FROM Estabelecimento Where Id=?", id);
         }

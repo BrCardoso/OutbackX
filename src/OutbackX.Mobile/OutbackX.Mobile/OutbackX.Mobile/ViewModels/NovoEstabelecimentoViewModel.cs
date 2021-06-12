@@ -1,13 +1,12 @@
-﻿using OutbackX.Mobile.Models;
+﻿using System;
+using System.Diagnostics;
+using OutbackX.Mobile.Models;
 using OutbackX.Mobile.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace OutbackX.Mobile.ViewModels
 {
+    [QueryProperty(nameof(ItemId), nameof(ItemId))]
     public class NovoEstabelecimentoViewModel : BaseViewModel
     {
         private string unidade;
@@ -18,6 +17,8 @@ namespace OutbackX.Mobile.ViewModels
         private string cidade;
         private string estado;
         private string cep;
+        private int itemId;
+ 
         private readonly IEstabelecimentoService estabelecimentoService;
 
         public NovoEstabelecimentoViewModel(IEstabelecimentoService estabelecimentoService)
@@ -40,11 +41,22 @@ namespace OutbackX.Mobile.ViewModels
                 && !string.IsNullOrWhiteSpace(CEP);
         }
 
+        public int ItemId
+        {
+            get => itemId;
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
+
         public string Unidade
         {
             get => unidade;
             set => SetProperty(ref unidade, value);
         }
+
         public string Endereco
         {
             get => endereco;
@@ -84,6 +96,27 @@ namespace OutbackX.Mobile.ViewModels
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
+        private void LoadItemId(int value)
+        {
+            try
+            {
+                var item = this.estabelecimentoService.GetById(value);
+        
+                Unidade = item.Unidade;
+                Endereco = item.Endereco;
+                Numero = item.Numero;
+                Complemento = item.Complemento;
+                Bairro = item.Bairro;
+                Cidade = item.Cidade;
+                Estado = item.Estado;
+                CEP = item.CEP;
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Failed to Load Item");
+            }
+        }
+
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack
@@ -92,21 +125,42 @@ namespace OutbackX.Mobile.ViewModels
 
         private async void OnSave()
         {
-            var newEstab = new Estabelecimento()
+            if (this.itemId == 0)
             {
-                Unidade = Unidade,
-                Endereco = Endereco,
-                Numero = Numero,
-                Complemento = Complemento,
-                Bairro = Bairro,
-                Cidade = Cidade,
-                Estado = Estado,
-                CEP = CEP
-            };
+                var newEstab = new Estabelecimento()
+                {
+                    Unidade = Unidade,
+                    Endereco = Endereco,
+                    Numero = Numero,
+                    Complemento = Complemento,
+                    Bairro = Bairro,
+                    Cidade = Cidade,
+                    Estado = Estado,
+                    CEP = CEP
+                };
 
-            this.estabelecimentoService.Insert(newEstab);
+                this.estabelecimentoService.Insert(newEstab);
+            }
+            else
+            {
+                var editEstab = new Estabelecimento()
+                {
+                    Id = this.itemId,
+                    Unidade = Unidade,
+                    Endereco = Endereco,
+                    Numero = Numero,
+                    Complemento = Complemento,
+                    Bairro = Bairro,
+                    Cidade = Cidade,
+                    Estado = Estado,
+                    CEP = CEP
+                };
 
-            MessagingCenter.Send(string.Empty, "NEW_ESTAB");
+                this.estabelecimentoService.Update(editEstab);
+            }
+
+
+            MessagingCenter.Send(string.Empty, "EDIT_ESTAB");
             await Shell.Current.GoToAsync("..");
         }
     }

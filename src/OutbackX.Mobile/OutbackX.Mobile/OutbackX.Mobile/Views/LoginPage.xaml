@@ -12,7 +12,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="LOGIN" HorizontalOptions="Center" FontSize="Title" Margin="0,30,0,10"></Label>
-            <Entry Text="{Binding Email}" Placeholder="Email" Margin="10,10"></Entry>
+            <Entry Text="{Binding Email}" Placeholder="Email" Margin="10,10" Keyboard="Email"></Entry>
             <Entry Text="{Binding Senha}" Placeholder="Senha" Margin="10,10" IsPassword="True"></Entry>
             <Label Text="{Binding Message, Mode=OneWay}" IsVisible="{Binding ShowMessage, Mode=OneWay}" Margin="10,0,0,0"></Label>
             <Button Text="LOGIN" TextColor="White" BackgroundColor="#009900" Margin="10,10,10,10" Command="{Binding LoginCommand}"></Button>

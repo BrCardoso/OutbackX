@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OutbackX.Mobile.Views.EstabeleceimentoDetalhePage"
+             Title="Detalhes do Estabelecimento">
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Frame>
+                <StackLayout>
+                    <Label Text="{Binding Unidade}" FontSize="Title"/>
+                    <!--<Label Text="Unidade:" FontSize="Medium" />
+                    <Label Text="{Binding Unidade}" FontSize="Small"/>-->
+                    <Label Text="Endereço:" FontSize="Medium" />
+                    <Label Text="{Binding Endereco}" FontSize="Small"/>
+                    <Label Text="Número:" FontSize="Medium" />
+                    <Label Text="{Binding Numero}" FontSize="Small"/>
+                    <Label Text="Complemento:" FontSize="Medium" />
+                    <Label Text="{Binding Complemento}" FontSize="Small"/>
+                    <Label Text="Bairro:" FontSize="Medium" />
+                    <Label Text="{Binding Bairro}" FontSize="Small"/>
+                    <Label Text="Cidade:" FontSize="Medium" />
+                    <Label Text="{Binding Cidade}" FontSize="Small"/>
+                    <Label Text="Estado:" FontSize="Medium" />
+                    <Label Text="{Binding Estado}" FontSize="Small"/>
+                    <Label Text="CEP:" FontSize="Medium" />
+                    <Label Text="{Binding CEP}" FontSize="Small"/>
+
+                    <Button Text="Excluir" Command="{Binding DeleteCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="Red"></Button>
+                    <Button Text="Editar" Command="{Binding EditCommand}" HorizontalOptions="FillAndExpand" BackgroundColor="Green"></Button>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

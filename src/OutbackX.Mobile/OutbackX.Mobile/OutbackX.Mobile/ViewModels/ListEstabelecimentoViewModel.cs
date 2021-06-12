@@ -24,7 +24,7 @@ namespace OutbackX.Mobile.ViewModels
             this.ItemTapped = new Command<Estabelecimento>(OnItemSelected);
             this.LoadItems();
 
-            MessagingCenter.Subscribe(this, "NEW_ESTAB", (string _) => this.LoadItems());
+            MessagingCenter.Subscribe(this, "EDIT_ESTAB", (string _) => this.LoadItems());
         }
 
         public ObservableCollection<Estabelecimento> Items { get; }
@@ -81,7 +81,7 @@ namespace OutbackX.Mobile.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(EstabeleceimentoDetalhePage)}?{nameof(EstabelecimentoDetailViewModel.ItemId)}={item.Id}", true);
         }
     }
 }

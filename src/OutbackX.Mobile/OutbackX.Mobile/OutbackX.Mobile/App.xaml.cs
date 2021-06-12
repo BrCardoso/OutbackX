@@ -23,6 +23,7 @@ namespace OutbackX.Mobile
             addPlatformServices?.Invoke(services);
 
             services.AddTransient<NovoEstabelecimentoViewModel>();
+            services.AddTransient<EstabelecimentoDetailViewModel>();
             services.AddTransient<ListEstabelecimentoViewModel>();
             services.AddTransient<NovoUsuarioViewModel>();
             services.AddTransient<LoginViewModel>();

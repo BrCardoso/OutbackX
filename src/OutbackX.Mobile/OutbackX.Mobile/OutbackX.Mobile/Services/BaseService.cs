@@ -48,7 +48,7 @@ namespace OutbackX.Mobile.Services
             this.dbConnection.Delete(model);
         }
 
-        protected abstract T GetById(int id);
+        public abstract T GetById(int id);
 
         protected T FindWithQuery(string query, params object[] args)
         {

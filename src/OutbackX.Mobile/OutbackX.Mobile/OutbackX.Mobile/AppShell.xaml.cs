@@ -13,7 +13,7 @@ namespace OutbackX.Mobile
 
             this.BindingContext = new AppShellViewModel();
             Routing.RegisterRoute(nameof(ListEstabelecimentoPage), typeof(ListEstabelecimentoPage));
-            //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
+            Routing.RegisterRoute(nameof(EstabeleceimentoDetalhePage), typeof(EstabeleceimentoDetalhePage));
             Routing.RegisterRoute(nameof(NewEstabelecimentoPage), typeof(NewEstabelecimentoPage));
         }
 
