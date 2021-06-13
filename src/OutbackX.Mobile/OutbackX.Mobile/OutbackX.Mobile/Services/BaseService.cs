@@ -54,5 +54,10 @@ namespace OutbackX.Mobile.Services
         {
             return this.dbConnection.FindWithQuery<T>(query, args);
         }
+
+        protected IEnumerable<T> DeferredQuery(string query, params object[] args)
+        {
+            return this.dbConnection.DeferredQuery<T>(query, args);
+        }
     }
 }

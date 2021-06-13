@@ -152,4 +152,7 @@
       <Name>OutbackX.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.PNG" />
+  </ItemGroup>
 </Project>

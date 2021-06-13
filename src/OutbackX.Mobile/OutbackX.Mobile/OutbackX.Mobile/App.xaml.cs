@@ -22,20 +22,23 @@ namespace OutbackX.Mobile
             var services = new ServiceCollection();
             addPlatformServices?.Invoke(services);
 
-            services.AddTransient<NovoEstabelecimentoViewModel>();
-            services.AddTransient<EstabelecimentoDetailViewModel>();
-            services.AddTransient<ListEstabelecimentoViewModel>();
-            services.AddTransient<NovoUsuarioViewModel>();
-            services.AddTransient<LoginViewModel>();
-            services.AddSingleton<IEstabelecimentoService, EstabelecimentoService>();
-            services.AddSingleton<IUsuarioService, UsuarioService>();
+            services.AddTransient<NovoEstabelecimentoViewModel>()
+                .AddTransient<EstabelecimentoDetailViewModel>()
+                .AddTransient<ListEstabelecimentoViewModel>()
+                .AddTransient<EstabelecimentoEditViewModel>()
+                .AddTransient<HomeViewModel>()
+                .AddTransient<NovoUsuarioViewModel>()
+                .AddTransient<LoginViewModel>();
+
+            services.AddSingleton<IEstabelecimentoService, EstabelecimentoService>()
+                .AddSingleton<IUsuarioService, UsuarioService>();
 
             ServiceProvider = services.BuildServiceProvider();
         }
 
         protected static IServiceProvider ServiceProvider { get; set; }
 
-        public static BaseViewModel GetViewModel<TViewModel>() where TViewModel : BaseViewModel
+        public static TViewModel GetViewModel<TViewModel>() where TViewModel : BaseViewModel
             => ServiceProvider.GetService<TViewModel>();
 
         protected override void OnStart()

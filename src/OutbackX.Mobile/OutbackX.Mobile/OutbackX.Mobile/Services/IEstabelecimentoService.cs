@@ -7,6 +7,7 @@ namespace OutbackX.Mobile.Services
 {
     public interface IEstabelecimentoService : IService<Estabelecimento>
     {
-        void AtualizarCapacidade(int id, Capacidade capacidadeAtual);
+        void AtualizarCapacidade(int id, Ocupacao ocupacao);
+        IEnumerable<Estabelecimento> Search(string searchValue);
     }
 }

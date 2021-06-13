@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:OutbackX.Mobile.ViewModels"
+             x:Class="OutbackX.Mobile.Views.EstabelecimentoEdit">
+    
+    <ContentPage.Content>
+        <StackLayout Padding="10" VerticalOptions="Center" >
+            <Label Text="{Binding Unidade}" FontSize="Title"/>
+            
+            <Label Text="Informar a ocupação atual" 
+                   HorizontalOptions="FillAndExpand" />
+
+            <Picker ItemsSource="{Binding Ocupacoes}" 
+                    SelectedIndex="{Binding Ocupacao}" 
+                    HorizontalOptions="FillAndExpand"  />
+            
+            <Button Text="Salvar" 
+                        Command="{Binding SalvarCommand}" 
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Green"></Button>
+
+            <Button Text="Cancelar" 
+                        Command="{Binding CancelarCommand}" 
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="Red"></Button>
+                
+           
+            
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

@@ -2,7 +2,7 @@
 
 namespace OutbackX.Mobile.Models
 {
-    public enum Capacidade
+    public enum Ocupacao
     {
         Vazio,
         Moderado,
@@ -22,6 +22,6 @@ namespace OutbackX.Mobile.Models
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
-        public Capacidade CapacidadeAtual { get; set; }
+        public Ocupacao Ocupacao { get; set; }
     }
 }
