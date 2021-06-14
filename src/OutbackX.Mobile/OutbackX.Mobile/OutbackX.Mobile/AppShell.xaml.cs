@@ -1,18 +1,20 @@
-﻿using OutbackX.Mobile.ViewModels;
+﻿using OutbackX.Mobile.Models;
+using OutbackX.Mobile.ViewModels;
 using OutbackX.Mobile.Views;
-using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace OutbackX.Mobile
 {
-    public partial class AppShell : Xamarin.Forms.Shell
+    public partial class AppShell : Shell
     {
         public AppShell()
         {
-            InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            this.InitializeComponent();
+
+            this.BindingContext = new AppShellViewModel();
+            Routing.RegisterRoute(nameof(ListEstabelecimentoPage), typeof(ListEstabelecimentoPage));
+            Routing.RegisterRoute(nameof(EstabeleceimentoDetalhePage), typeof(EstabeleceimentoDetalhePage));
+            Routing.RegisterRoute(nameof(NewEstabelecimentoPage), typeof(NewEstabelecimentoPage));
         }
 
     }

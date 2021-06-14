@@ -1,13 +1,14 @@
-﻿using OutbackX.Mobile.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
+using OutbackX.Mobile.Models;
+using OutbackX.Mobile.Services;
+using OutbackX.Mobile.Views;
 using Xamarin.Forms;
 
 namespace OutbackX.Mobile.ViewModels
 {
     [QueryProperty(nameof(ItemId), nameof(ItemId))]
-    public class ItemDetailViewModel : BaseViewModel
+    public class EstabelecimentoDetailViewModel : BaseViewModel
     {
         private int itemId;
         private string unidade;
@@ -18,14 +19,21 @@ namespace OutbackX.Mobile.ViewModels
         private string cidade;
         private string estado;
         private string cCEP;
-        public int Id { get; set; }
+        private readonly IEstabelecimentoService estabelecimentoService;
+        private Command deleteCommand;
+        private Command editCommand;
 
+        public EstabelecimentoDetailViewModel(IEstabelecimentoService estabelecimentoService)
+        {
+            this.estabelecimentoService = estabelecimentoService;
+        }
+
+        public int Id { get; set; }
         public string Unidade
         {
             get => unidade;
             set => SetProperty(ref unidade, value);
         }
-
         public string Endereco
         {
             get => endereco;
@@ -36,7 +44,6 @@ namespace OutbackX.Mobile.ViewModels
             get => numero;
             set => SetProperty(ref numero, value);
         }
-
         public string Complemento
         {
             get => complemento;
@@ -64,10 +71,7 @@ namespace OutbackX.Mobile.ViewModels
         }
         public int ItemId
         {
-            get
-            {
-                return itemId;
-            }
+            get => itemId;
             set
             {
                 itemId = value;
@@ -75,11 +79,28 @@ namespace OutbackX.Mobile.ViewModels
             }
         }
 
-        public async void LoadItemId(int itemId)
+        public Command EditCommand => this.editCommand = this.editCommand ?? new Command(async () =>
+        {
+            await Shell.Current.GoToAsync($"{nameof(NewEstabelecimentoPage)}?ItemId={this.Id}", true);
+        });
+
+        public Command DeleteCommand => this.deleteCommand = this.deleteCommand ?? new Command(async () =>
+        {
+            var resp = await Application.Current.MainPage.DisplayAlert("Excluir?", "Deseja relamente excluir esse Estabelecimento?", "Sim", "Não");
+            if (resp)
+            {
+                var item = this.estabelecimentoService.GetById(this.Id);
+                this.estabelecimentoService.Delete(item);
+                MessagingCenter.Send(string.Empty, "EDIT_ESTAB");
+                await Shell.Current.GoToAsync("..");
+            }
+        });
+
+        private void LoadItemId(int itemId)
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
+                var item = this.estabelecimentoService.GetById(itemId);
                 Id = item.Id;
                 Unidade = item.Unidade;
                 Endereco = item.Endereco;

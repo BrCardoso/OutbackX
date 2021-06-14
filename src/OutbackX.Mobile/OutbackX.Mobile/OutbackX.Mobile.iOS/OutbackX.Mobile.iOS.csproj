@@ -63,6 +63,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Config\DbPathConfig.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -132,6 +133,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>5.0.1</Version>
+    </PackageReference>
     <PackageReference Include="PCLExt.FileStorage">
       <Version>1.4.1.1</Version>
     </PackageReference>
@@ -147,5 +151,8 @@
       <Project>{A7E14B35-FDCF-4ABC-BA1F-646A582D8AB8}</Project>
       <Name>OutbackX.Mobile</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\logo.PNG" />
   </ItemGroup>
 </Project>

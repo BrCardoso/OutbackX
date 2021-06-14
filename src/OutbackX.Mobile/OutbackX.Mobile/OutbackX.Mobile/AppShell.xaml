@@ -2,15 +2,10 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:OutbackX.Mobile.Views"
+       xmlns:vm="clr-namespace:OutbackX.Mobile.ViewModels"
        Title="OutbackX.Mobile"
        x:Class="OutbackX.Mobile.AppShell">
-
-    <!--
-        The overall app visual hierarchy is defined here, along with navigation.
     
-        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
-    -->
-
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
@@ -31,16 +26,9 @@
 
     <TabBar>
         <ShellContent Title="Home" Icon="icon_about.png" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-        <ShellContent Title="Admin" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
+
+        <ShellContent Title="Admin" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:LoginPage}" >
+            
+        </ShellContent>
     </TabBar>
-
-    <!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
-    <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>
-
-
 </Shell>

@@ -1,4 +1,5 @@
-﻿using OutbackX.Mobile.Views;
+﻿using OutbackX.Mobile.Services;
+using OutbackX.Mobile.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,17 +9,48 @@ namespace OutbackX.Mobile.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
+        private string email;
+        private string senha;
+        private readonly IUsuarioService usuarioService;
 
-        public LoginViewModel()
+        public LoginViewModel(IUsuarioService usuarioService)
         {
-            LoginCommand = new Command(OnLoginClicked);
+            this.usuarioService = usuarioService;
+            this.LoginCommand = new Command(this.OnLoginClicked);
+            this.CreateAccountCommand = new Command(this.OnCreateCommandClicked);
         }
 
-        private async void OnLoginClicked(object obj)
+        public string Email
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            get => this.email;
+            set => this.SetProperty(ref this.email, value);
+        }
+
+        public string Senha
+        {
+            get => this.senha;
+            set => this.SetProperty(ref this.senha, value);
+        }
+
+        public Command LoginCommand { get; }
+        public Command CreateAccountCommand { get; }
+
+        private async void OnCreateCommandClicked()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new NovoUsuarioPage());
+        }
+
+        private void OnLoginClicked(object obj)
+        {
+            if (this.usuarioService.Login(this.email, this.senha))
+            {
+                var usuario = this.usuarioService.GetByEmail(this.email);
+                Shell.Current.Navigation.PushAsync(new ListEstabelecimentoPage());
+            }
+            else
+            {
+                this.Message = "Email e/ou senha inválidos";
+            }
         }
     }
 }

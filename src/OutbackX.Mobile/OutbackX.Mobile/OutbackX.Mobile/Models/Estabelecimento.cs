@@ -2,7 +2,15 @@
 
 namespace OutbackX.Mobile.Models
 {
-    public class Item
+    public enum Ocupacao
+    {
+        Vazio,
+        Moderado,
+        Cheio,
+        TemFila
+    }
+
+    public class Estabelecimento
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -14,5 +22,6 @@ namespace OutbackX.Mobile.Models
         public string Cidade { get; set; }
         public string Estado { get; set; }
         public string CEP { get; set; }
+        public Ocupacao Ocupacao { get; set; }
     }
 }

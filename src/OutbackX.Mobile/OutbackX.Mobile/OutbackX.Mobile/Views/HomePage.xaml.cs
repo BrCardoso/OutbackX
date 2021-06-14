@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using OutbackX.Mobile.ViewModels;
+using Xamarin.Forms;
 
 namespace OutbackX.Mobile.Views
 {
@@ -6,7 +7,8 @@ namespace OutbackX.Mobile.Views
     {
         public HomePage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+            this.BindingContext = App.GetViewModel<HomeViewModel>();
         }
     }
 }

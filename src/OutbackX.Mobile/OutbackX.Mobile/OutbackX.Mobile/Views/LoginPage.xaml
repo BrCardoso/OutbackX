@@ -4,11 +4,24 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:vm="clr-namespace:OutbackX.Mobile.ViewModels"
              x:Class="OutbackX.Mobile.Views.LoginPage"
+             Title="Outback X"
              Shell.NavBarIsVisible="False">
+
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+        <StackLayout>
+            <Label Text="LOGIN" HorizontalOptions="Center" FontSize="Title" Margin="0,30,0,10"></Label>
+            <Entry Text="{Binding Email}" Placeholder="Email" Margin="10,10" Keyboard="Email"></Entry>
+            <Entry Text="{Binding Senha}" Placeholder="Senha" Margin="10,10" IsPassword="True"></Entry>
+            <Label Text="{Binding Message, Mode=OneWay}" IsVisible="{Binding ShowMessage, Mode=OneWay}" Margin="10,0,0,0"></Label>
+            <Button Text="LOGIN" TextColor="White" BackgroundColor="#009900" Margin="10,10,10,10" Command="{Binding LoginCommand}"></Button>
+            <Button Text="NOVO USUÁRIO" Margin="10,10,10,10" Command="{Binding CreateAccountCommand}"></Button>
+            <!--<Label Text="Esqueci minha senha" TextColor="Blue" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding cmdEsqueciMinhaSenha}"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
